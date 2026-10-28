@@ -20,11 +20,11 @@ AppTestは実ブラウザのスクリーンショット検証や公開URL確認�
 - CF_DEMO.RAW/MART、PROJECTS/CASH_EVENTSの作成を確認。
 - 既存のXS Warehouse `SNOWFLAKE_LEARNING_WH` を使用。新Warehouseは作成していません。
 - シードMERGE実行成功、CASH_EVENTSが54件と実測確認（親担当）。
-- ビュー作成・案件件数確認は実測結果を追記予定。
+- 公開ビュー作成済み。PUBLIC_PROJECTS 3件、PUBLIC_CASH_EVENTS 54件を確認（親担当）。
 - アプリ用サービスユーザー・鍵ペア・最小権限は未設定。外部アプリからのSnowflake接続は未検証。
 
 ## 公開
 
-- 外部ホストへの登録/リポジトリ連携/鍵保存の承認待ち。
+- 外部ホストへの登録/リポジトリ連携/専用読取ユーザーと鍵保存はユーザー承認取得済み。設定作業は親担当が実施。
 - 公開URLなし。匿名アクセスのE2Eは未実施。
 - リポジトリは非公開、Secretsをソースに保存していません。
