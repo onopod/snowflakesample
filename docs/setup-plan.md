@@ -6,7 +6,7 @@
 
 - ユーザーがSnowflakeアカウントを作成。以降の設定・実装はChatGPT側で担当する。
 - **誰でもURLから閲覧できる匿名公開**。旧案のStreamlit in Snowflake認証付きUIを変更し、外部ホストでPython Streamlitを実行、Snowflakeをバックエンドとする。
-- GitHub `onopod/snowflakesample` は非公開を維持する。公開するのはアプリと架空データのみ。
+- GitHub `onopod/snowflakesample` は所有者が公開へ変更済み。アプリ・コード・架空データを公開し、秘密情報はホストSecretsに限定する。
 - 日本語、日本円、架空3案件、24か月。自社の土地取得・企画・売却に伴う資金繰り。
 - 初期現金、予定/実績、借入/返済を明示。ファンドの建築費を自社支出と混在させない。
 - サービスユーザー作成・秘密鍵発行保存・外部サービス連携・有料化は別途承認する。
@@ -21,7 +21,7 @@
 6. `sql/03_views.sql` で固定SELECT用ビューと月次集計ビューを作成。件数と実績2件を確認。
 7. Python計算とStreamlit UIをローカルデモで検証。まず正常系、次に異常系。
 8. 専用サービスユーザーの鍵ペア認証と最小読取権限を承認後に設定。秘密はホスト側Secretsのみ。
-9. Streamlit Community Cloud等の外部ホストへprivate repoから公開。entrypointは`streamlit_app.py`。
+9. Streamlit Community Cloud等の外部ホストへリポジトリから公開。entrypointは`streamlit_app.py`。
 10. 接続成功、基準残高、売却遅延、匿名閲覧を実環境で検証し、URLと結果を記録する。
 11. PostgreSQL CDC/外部APIなどの差分連携は第2段階。削除・再実行・遅延更新を設計する。
 
@@ -45,3 +45,12 @@ CF_DEMO.RAW/MARTと原表を作成済み。初期投入には既存XS Warehouse�
 Python/SQL/UI/テストを実装済み。ローカル17テスト成功。外部ホスト登録・GitHub連携・読取専用サービスユーザー鍵の作成保存はユーザー承認取得済み、設定作業中。公開ビューから案件3件/明細54件の取得を確認済み。
 
 専用ユーザー/鍵ペアで外部Python接続成功。公開ビュー3/54件と読取専用5権限を確認済み。公開ホストへの展開と匿名閲覧E2Eは別途確認する。
+
+## 公開完了（2026-10-29 JST）
+
+公開URL：https://onopod-cashflow.streamlit.app/
+
+Streamlit Community Cloud、Python 3.12、mainブランチ、Snowflake接続でデプロイ済み。
+画面でSnowflake取得成功、3案件、標準201,550,000円、売却3か月遅延199,825,000円を確認。
+所有者がGitHubをpublicへ変更。全4コミットの監査では実秘密鍵・トークン・実個人データは検出されず、秘密鍵例はダミーであることを確認済み。
+GitHub追加権限は所有者の明示承認後に再接続。権限を最小化するpublic-only再接続はサービス側の追加認可ループで完了できなかったため、当初の権限で接続した。公開後の変更はmainから反映される。

@@ -4,6 +4,13 @@ Python / Streamlit / Snowflakeを使う、架空3案件・24か月の公開用�
 物流施設の土地を取得・企画して開発ファンドへ売却する自社の資金繰りです。
 実企業の財務情報は含みません。売上・利益と借入金を混同しません。
 
+## 公開サイト
+
+**https://onopod-cashflow.streamlit.app/**
+
+Streamlit Community Cloud / Python 3.12 / Snowflake接続で稼働。2026-10-29 JST、公開画面で3案件と標準・売却3か月遅延の残高を確認しました。
+リポジトリは所有者が公開へ変更済みです。認証情報はホストのSecretsのみで管理し、GitHubには含めていません。
+
 ## ローカルで確認
 
 Python 3.12を推奨。
@@ -38,7 +45,7 @@ SDKの不要なクラウドメタデータ探索は公式設定で無効にし�
 ## 匿名公開
 
 Streamlit in Snowflakeの認証画面を一般公開するのではなく、**外部のStreamlitホスト → Snowflake** の構成にします。
-候補はStreamlit Community Cloud（無料）。非公開GitHubリポジトリのまま、アプリの閲覧設定だけpublicにできます。
+公開先はStreamlit Community Cloud（無料）。現在は所有者が公開したGitHubリポジトリからデプロイしています。非公開リポジトリから公開する構成もサービス上は可能です。
 
 - ホストにログインしGitHub接続を許可（必要な連携権限は所有者が承認）。
 - `onopod/snowflakesample`, branch `main`, entrypoint `streamlit_app.py`, Python 3.12を指定。
