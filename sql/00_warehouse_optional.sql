@@ -1,0 +1,3 @@
+-- OPTIONAL: warehouse consumes credits when resumed/used; run only with owner approval.
+CREATE WAREHOUSE IF NOT EXISTS CF_DEMO_WH
+WAREHOUSE_SIZE='XSMALL' AUTO_SUSPEND=60 AUTO_RESUME=TRUE INITIALLY_SUSPENDED=TRUE;
