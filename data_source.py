@@ -1,5 +1,10 @@
 """Server-side connection only. No anonymous SQL or user supplied identifiers."""
 from contextlib import closing
+import os
+
+# Key-pair auth does not need cloud metadata. Disable optional SDK platform
+# detection before importing/initializing the connector to avoid metadata probes.
+os.environ["SNOWFLAKE_DISABLE_PLATFORM_DETECTION"] = "true"
 
 PROJECT_QUERY = 'SELECT PROJECT_ID, PROJECT_NAME, LOCATION, LOAN_PRINCIPAL, ANNUAL_INTEREST_RATE FROM CF_DEMO.MART.PUBLIC_PROJECTS'
 EVENT_QUERY = 'SELECT EVENT_ID, PROJECT_ID, COUNTERPARTY, CATEGORY, PLANNED_DATE, PLANNED_AMOUNT, ACTUAL_DATE, ACTUAL_AMOUNT FROM CF_DEMO.MART.PUBLIC_CASH_EVENTS'
