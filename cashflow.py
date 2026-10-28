@@ -81,3 +81,27 @@ def dated_npv(events, rate, valuation_date):
     if rate <= -1: raise ValueError('割引率は-100%より大きい必要があります')
     base = to_date(valuation_date)
     return sum(e['amount'] / (1+rate)**((e['date']-base).days/365) for e in events if e['category'] not in FINANCING)
+
+def future_totals(events, as_of, start, end):
+    """Unsettled forecast totals within [start,end), strictly after as_of."""
+    values=[e['amount'] for e in events if e['kind']=='予測' and to_date(as_of)<e['date'] and to_date(start)<=e['date']<to_date(end)]
+    return sum(x for x in values if x>0), -sum(x for x in values if x<0)
+
+def plan_actual_variances(events, start, end):
+    """Compare original plan with settled actuals; unsettled differences stay null."""
+    result=[]
+    for e in events:
+        planned=to_date(e['planned_date'])
+        actual=to_date(e['actual_date']) if e.get('actual_date') is not None else None
+        if not (to_date(start)<=planned<to_date(end) or (actual and to_date(start)<=actual<to_date(end))):
+            continue
+        result.append({
+            'event_id':e['event_id'], 'project_id':e['project_id'], 'category':e['category'],
+            'planned_date':str(planned), 'planned_amount':int(e['planned_amount']),
+            'actual_date':str(actual) if actual else None,
+            'actual_amount':int(e['actual_amount']) if actual else None,
+            'variance':int(e['actual_amount'])-int(e['planned_amount']) if actual else None,
+            'delay_days':(actual-planned).days if actual else None,
+            'status':'確定' if actual else '未確定',
+        })
+    return result

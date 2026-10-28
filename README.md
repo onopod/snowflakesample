@@ -70,3 +70,11 @@ Streamlit in Snowflakeの認証画面を一般公開するのではなく、**�
 公式資料：
 - https://docs.streamlit.io/deploy/streamlit-community-cloud/share-your-app
 - https://docs.streamlit.io/develop/tutorials/databases/snowflake
+
+## 要件監査で追加した表示
+
+- 36か月から表示月範囲を選択（初期24か月）。期間開始前のCFを残高へ繰り越します。
+- 選択期間内・基準日以降の未確定入金/出金合計、最低月末残高の月。
+- 案件の取得日・当初売却予定日・シナリオ反映後売却日。
+- 当初予定対実績の金額/日数差。未確定は空欄とし、実績0円と区別。
+- 明細表示/CSVは選択期間内。案件NPVは全期間のままです。
